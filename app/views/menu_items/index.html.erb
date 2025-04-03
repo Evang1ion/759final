@@ -1,0 +1,20 @@
+<h1>Menu for <%= @restaurant.name %></h1>
+
+<% @menu_items.each do |item| %>
+  <div class="menu-item-card">
+    <h3><%= item.name %></h3>
+    <p><%= item.description %></p>
+    <p class="price">Price: <%= number_to_currency(item.price) %></p>
+
+    <% if logged_in? %>
+      <%= button_to 'Add to Order',
+          order_items_path(menu_item_id: item.id),
+          method: :post,
+          class: "btn" %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if logged_in? && current_order.present? %>
+  <%= link_to 'View Cart', order_path(current_order), class: "btn" %>
+<% end %>

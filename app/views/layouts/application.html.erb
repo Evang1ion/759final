@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <%= stylesheet_link_tag "application", "custom", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-left">
+          <a href="/" class="navbar-logo-box">
+            <span class="navbar-logo-text">Jiaqi Eats</span>
+          </a>
+        </div>
+
+        <div class="navbar-right">
+          <% if logged_in? %>
+            <span>Hi, <%= current_user.name %></span>
+            <%= link_to "Logout", logout_path, method: :delete %>
+          <% else %>
+            <%= link_to "Login", login_path %>
+            <%= link_to "Register", new_user_path %>
+          <% end %>
+
+          <%= link_to "← Back", request.referer || restaurants_path, class: "btn" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <%= yield %>
+    </div>
+
+    <%= render 'shared/cart' if logged_in? %>
+  </body>
+</html>

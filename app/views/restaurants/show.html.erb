@@ -1,0 +1,5 @@
+<h1><%= @restaurant.name %></h1>
+<p>Location: <%= @restaurant.location %></p>
+
+<h2>Menu</h2>
+<%= link_to 'View Menu', restaurant_menu_items_path(@restaurant) %>
