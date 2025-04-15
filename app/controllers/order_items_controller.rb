@@ -1,5 +1,5 @@
 class OrderItemsController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_user!  # ✅ 使用 Devise 的认证方法
 
   def create
     menu_item = MenuItem.find(params[:menu_item_id])

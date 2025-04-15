@@ -29,15 +29,13 @@
         </div>
 
         <div class="navbar-right">
-          <% if logged_in? %>
+          <% if user_signed_in? %>
             <span>Hi, <%= current_user.name %></span>
-            <%= link_to "Logout", logout_path, method: :delete %>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, form: { "data-turbo" => "false" }, class: "btn logout-btn" %>
           <% else %>
-            <%= link_to "Login", login_path %>
-            <%= link_to "Register", new_user_path %>
+            <%= link_to "Login", new_user_session_path %>
+            <%= link_to "Register", new_user_registration_path %>
           <% end %>
-
-          <%= link_to "← Back", request.referer || restaurants_path, class: "btn" %>
         </div>
       </div>
     </div>
@@ -46,6 +44,8 @@
       <%= yield %>
     </div>
 
-    <%= render 'shared/cart' if logged_in? %>
+    <% if user_signed_in? %>
+      <%= render 'shared/cart' %>
+    <% end %>
   </body>
 </html>

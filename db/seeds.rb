@@ -1,11 +1,9 @@
-# 清空旧数据
 OrderItem.delete_all
 Order.delete_all
 MenuItem.delete_all
 Restaurant.delete_all
 User.delete_all
 
-# 创建测试用户
 User.create!(
   name: "Alice Tester",
   email: "alice@example.com",
@@ -13,9 +11,6 @@ User.create!(
   password_confirmation: "password"
 )
 
-puts "🧼 数据已清空，开始创建新餐厅和菜品..."
-
-# 餐厅名字和菜品名数据
 restaurant_names = [
   "Spicy Garden", "Ocean Delight", "Burger House", "Green Bowl",
   "Noodle Heaven", "Taco Time", "BBQ Station", "Sushi Zen",
@@ -37,14 +32,12 @@ dishes = [
   { name: "Vegetable Stir Fry", description: "Seasonal vegetables stir-fried with garlic soy sauce over rice." }
 ]
 
-# 创建 10 家餐厅
 restaurant_names.each_with_index do |name, index|
   address = "#{1001 + index} King Street, #{base_address}"
   restaurant = Restaurant.create!(name: name, location: address)
 
   puts "🍴 创建餐厅：#{restaurant.name} (#{restaurant.location})"
 
-  # 为每家餐厅创建 10 道菜
   dishes.each do |dish|
     restaurant.menu_items.create!(
       name: dish[:name],
@@ -54,4 +47,3 @@ restaurant_names.each_with_index do |name, index|
   end
 end
 
-puts "✅ 共创建 #{Restaurant.count} 家餐厅，#{MenuItem.count} 道菜"

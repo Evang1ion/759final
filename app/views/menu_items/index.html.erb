@@ -6,7 +6,7 @@
     <p><%= item.description %></p>
     <p class="price">Price: <%= number_to_currency(item.price) %></p>
 
-    <% if logged_in? %>
+    <% if user_signed_in? %>
       <%= button_to 'Add to Order',
           order_items_path(menu_item_id: item.id),
           method: :post,
@@ -15,6 +15,6 @@
   </div>
 <% end %>
 
-<% if logged_in? && current_order.present? %>
+<% if user_signed_in? && current_order.present? %>
   <%= link_to 'View Cart', order_path(current_order), class: "btn" %>
 <% end %>
